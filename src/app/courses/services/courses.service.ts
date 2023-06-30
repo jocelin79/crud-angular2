@@ -10,14 +10,18 @@ export class CoursesService {
 
   private readonly API = 'api/courses';
 
-  constructor(private httpClinete: HttpClient) { }
+  constructor(private httpClient: HttpClient) { }
 
   list() {
-    return this.httpClinete.get<Course[]>(this.API)
+    return this.httpClient.get<Course[]>(this.API)
     .pipe(
       first(),
-      delay(3000),
+      delay(2000),
       tap(courses => console.log(courses))
     );
+  }
+
+  save(record: Partial<Course>) {
+    return this.httpClient.post<Course>(this.API, record);
   }
 }
